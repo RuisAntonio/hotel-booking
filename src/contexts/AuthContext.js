@@ -11,10 +11,13 @@ export const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [userDetails, setUserDetails] = useState(null);
-  const [authCheckTrigge
+  const [authCheckTrigger, setAuthCheckTrigger] = useState(false);
+
+  useEffect(() => {
     const checkAuthStatus = async () => {
       const response = await networkAdapter.get('api/users/auth-user');
-      if (response && ressponse.data.isAuthenticated);
+      if (response && response.data) {
+        setIsAuthenticated(response.data.isAuthenticated);
         setUserDetails(response.data.userDetails);
       }
     };
